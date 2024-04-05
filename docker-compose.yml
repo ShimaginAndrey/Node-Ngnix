@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  server:
+    image: server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${SERVER_HOST}
+    env_file: .env
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+  ngnix:
+    image: reverse-proxy
+    build:
+      context: ./ngnix
+      dockerfile: Dockerfile
+    container_name: ${NGNIX_HOST}
+    env_file: .env
+    ports:
+      - ${NGNIX_PORT}:${NGNIX_PORT}
